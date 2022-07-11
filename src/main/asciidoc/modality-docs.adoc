@@ -25,13 +25,13 @@ Modality is a modular hospitality system, supporting a wide range of bookable, c
 Git clone the Modality codebase via the terminal (or IntelliJ etc):
 
  cd $MODALITY_ROOT
- git clone https://github.com/modality-project/modality.git .
+ git clone https://github.com/mongoose-project/modality.git .
 
 
 === 3. Install Docker
 Modality uses Docker for all external services, including the database and the in-memory datastore for sessions, etc.
 
-Please install Docker on your local machine if you do not have it already. If using a Mac, the easiest way is to install using `brew`. Please provide Docker with a minimum of 8GB of RAM, ideally more. Insufficient RAM may result in `java.lang.OutOfMemoryError` errors when importing the link:https://github.com/modality-project/modality-dev-db[modality-dev-db^].
+Please install Docker on your local machine if you do not have it already. If using a Mac, the easiest way is to install using `brew`. Please provide Docker with a minimum of 8GB of RAM, ideally more. Insufficient RAM may result in `java.lang.OutOfMemoryError` errors when importing the link:https://github.com/mongoose-project/modality-dev-db[modality-dev-db^].
 
 
 === 4. Prepare Docker environment variables
@@ -141,14 +141,14 @@ Once a new script has been added to the folder, the Flyway container should be r
 
 
 == Modality Development Database
-The Modality project additionally provides a development database that is pre-populated with test data, available from the link:https://github.com/modality-project/modality-dev-db[modality-dev-db^] repository.
+The Modality project additionally provides a development database that is pre-populated with test data, available from the link:https://github.com/mongoose-project/modality-dev-db[modality-dev-db^] repository.
 
 If you wish to import this database, you will need to:
 
 <1> shut down the Modality server
 <2> shut down the docker containers
 <3> delete the `docker/data/` folder
-<4> download the link:https://github.com/modality-project/modality-dev-db[modality-dev-db^] repository
+<4> download the link:https://github.com/mongoose-project/modality-dev-db[modality-dev-db^] repository
 <5> decompress the `V0001__modality_dev_db.sql.zip` file in the modality-dev-db repository
 <6> move the unzipped `V0001__modality_dev_db.sql` to the `modality-base/modality-base-server-datasource/src/main/resources/db/` folder
 <7> move all the other scripts temporarily out of the folder
