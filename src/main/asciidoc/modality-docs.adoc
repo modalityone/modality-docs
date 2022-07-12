@@ -10,7 +10,9 @@ Last updated: {docdate}
 === What is Modality?
 Modality is a Java-based, modular, hospitality-oriented booking system. Multiple organisations, events and properties are supported, together with a wide range of hospitality-related add-ons, such as meals, transport, translation, special needs and more.
 
-Modality is the first large-scale project to use link:docs.webfx.dev[WebFX] - a toolkit which transpiles JavaFX applications into pure JavaScript web apps for direct execution in the browser.
+
+=== Why the name?
+'Modality' is a fusion of two words, 'modular' and 'hospitality', a nod to both the software's design and purpose.
 
 
 === The Modality Architecture
@@ -43,7 +45,7 @@ Modality is developed using the following technologies:
 |===
 | Application | Purpose | Version
 
-| link:https://vertx.io/[Vert.x] | Interface between client apps and back-end services | Latest
+| link:https://vertx.io/[Vert.x] | Interface between client apps and back-end services; serves the SPA | Latest
 |===
 
 ...and depends on the following services:
@@ -58,6 +60,11 @@ Modality is developed using the following technologies:
 |===
 
 The services are orchestrated by link:https://www.docker.com/products/docker-desktop/[Docker] when running Modality on the localhost (instructions given later in this document).
+
+
+=== Introducing WebFX
+Modality is the first large-scale project to use link:docs.webfx.dev[WebFX] - a toolkit which transpiles JavaFX applications into pure JavaScript web apps for direct execution in the browser.
+
 
 
 == Installation
@@ -111,7 +118,7 @@ NOTE: All subsequent IDE-based examples given in this documentation will be base
 
 
 == Configure Modality for localhost
-=== 1. Create a Run Configuration for the Modality Server
+=== Create a Run Configuration for Modality Server
 In order to run any of the Modality client applications, the Modality Server should first be running. The Modality Server is a link:https://vertx.io/[Vert.x] server that proxies requests to the database and is responsible for establishing and maintaining user sessions.
 
 The easiest way to stand up the server locally is to create an application run configuration in your IDE.
@@ -124,7 +131,7 @@ image::run-configuration-modality-server-2.png[]
 Click 'OK' to save the configuration and close the dialog.
 
 
-=== 2. Create a Run Configuration for the Modality Back-Office (Desktop) client
+=== Create a Run Configuration for Modality Back-Office (Desktop) client
 The Modality Back-Office (Desktop) client is the application used by administrators of Modality, and is where new organisations and events are created etc.
 
 Create another run configuration and populate it with the details given in the screenshot below:
@@ -134,15 +141,15 @@ image::run-configuration-modality-back-office-1.png[]
 Click 'OK' to save the configuration and close the dialog.
 
 
-=== 3. Create a Run Configuration for the Modality Back-Office (Web) client
+=== Create a Run Configuration for Modality Back-Office (Web) client
 NOTE: Documentation not yet available.
 
 
-=== 4. Create a Run Configuration for the Modality Front-Office (Mobile) client
+=== Create a Run Configuration for Modality Front-Office (Mobile) client
 NOTE: Documentation not yet available.
 
 
-=== 5. Create a Run Configuration for the Modality Front-Office (Web) client
+=== Create a Run Configuration for Modality Front-Office (Web) client
 NOTE: Documentation not yet available.
 
 
@@ -151,18 +158,18 @@ NOTE: Documentation not yet available.
 The Modality clients run independently of each other, but all require the Modality Server to be running, which in turn requires Docker to be running the service containers described above. Therefore, the first two steps below are mandatory before running one or more of the Modality clients locally.
 
 
-=== 1. Ensure Docker is running [red]***
+=== Ensure Docker is running [red]***
  cd $MODALITY_ROOT/docker
  docker-compose up
 
 
-=== 2. Start the Modality Server [red]***
+=== Start the Modality Server [red]***
 Start the Modality server by executing the run configuration:
 
 image::run-modality-server-locally-1.png[]
 
 
-=== 3. Start the Modality Back-Office (Desktop) client
+=== Start Modality Back-Office (Desktop) client
 Start the Modality Back-Office (Desktop) client by executing run configuration:
 
 image::run-modality-back-office-desktop-locally-1.png[]
@@ -172,15 +179,15 @@ The Back-Office (Desktop) GUI should then display:
 image::modality-back-office-desktop-1.png[]
 
 
-=== 4. Start the Modality Back-Office (Web) client
+=== Start Modality Back-Office (Web) client
 NOTE: Documentation not yet available.
 
 
-=== 5. Start the Modality Front-Office (Mobile) client
+=== Start Modality Front-Office (Mobile) client
 NOTE: Documentation not yet available.
 
 
-=== 6. Start the Modality Front-Office (Web) client
+=== Start the Modality Front-Office (Web) client
 NOTE: Documentation not yet available.
 
 
