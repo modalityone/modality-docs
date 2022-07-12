@@ -183,7 +183,7 @@ Click 'OK' to save the configuration and close the dialog.
 
 
 === Create a Run Configuration for Modality Back-Office (Desktop) client
-The Modality Back-Office (Desktop) client is the application used by administrators of Modality, and is where new organisations and events are created etc.
+The Modality Back-Office (Desktop) client is an application used by developers of Modality, and emulates the web user interface used by administrators of the system.
 
 Create another run configuration and populate it with the details given in the screenshot below:
 
