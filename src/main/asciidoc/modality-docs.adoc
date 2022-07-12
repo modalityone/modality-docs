@@ -37,7 +37,7 @@ Modality is developed using the following technologies:
 | Back-Office (Web) | Administrator | WebFX + GWT
 |===
 
-...one embedded web server:
+...one web server:
 
 [cols="1,1,1"]
 |===
@@ -96,20 +96,22 @@ Environment variables store the Postgres database name, username and password. D
  docker-compose build --no-cache
 
 
-=== 6. Start the containers and build the database
+=== 6. Start the containers to build the database
  cd $MODALITY_ROOT/docker
  docker-compose up
 
 The database scripts are stored in the `modality-base/modality-base-server-datasource/src/main/resources/db/` folder, and are executed sequentially by the link:https://flywaydb.org/[Flyway^] database version control container. Please allow several minutes for Flyway to complete. Once finished, you will now up and running with all the external services that Modality depends on.
 
 
-=== 7. Install your IDE
+=== 7. Install IntelliJ IDEA
 We develop Modality using the free, community edition of link:https://www.jetbrains.com/idea/[IntelliJ IDEA], and recommend you install this if you do not already have an IDE. IntelliJ allows you to easily compile and run the Modality server and clients, for the purpose of local development and testing.
 
 NOTE: All subsequent IDE-based examples given in this documentation will be based on IntelliJ.
 
 
-=== 8. Create a Run Configuration for the Modality Server
+
+== Configure Modality for localhost
+=== 1. Create a Run Configuration for the Modality Server
 In order to run any of the Modality client applications, the Modality Server should first be running. The Modality Server is a link:https://vertx.io/[Vert.x] server that proxies requests to the database and is responsible for establishing and maintaining user sessions.
 
 The easiest way to stand up the server locally is to create an application run configuration in your IDE.
@@ -122,7 +124,7 @@ image::run-configuration-modality-server-2.png[]
 Click 'OK' to save the configuration and close the dialog.
 
 
-=== 9. Create a Run Configuration for the Modality Back-Office (Desktop) client
+=== 2. Create a Run Configuration for the Modality Back-Office (Desktop) client
 The Modality Back-Office (Desktop) client is the application used by administrators of Modality, and is where new organisations and events are created etc.
 
 Create another run configuration and populate it with the details given in the screenshot below:
@@ -132,58 +134,54 @@ image::run-configuration-modality-back-office-1.png[]
 Click 'OK' to save the configuration and close the dialog.
 
 
-=== 10. Run the Modality Back-Office (Desktop) client locally
-<1> Ensure Docker is running
-<2> Execute the Modality Server run configuration, and wait until it is running
-<2> Execute the Modality Back-Office (Desktop) run configuration. The Back-Office GUI should then display, as shown below:
+=== 3. Create a Run Configuration for the Modality Back-Office (Web) client
+NOTE: Documentation not yet available.
+
+
+=== 4. Create a Run Configuration for the Modality Front-Office (Mobile) client
+NOTE: Documentation not yet available.
+
+
+=== 5. Create a Run Configuration for the Modality Front-Office (Web) client
+NOTE: Documentation not yet available.
+
+
+
+== Run Modality on localhost
+The Modality clients run independently of each other, but all require the Modality Server to be running, which in turn requires Docker to be running the service containers described above. Therefore, the first two steps below are mandatory before running one or more of the Modality clients locally.
+
+
+=== 1. Ensure Docker is running [red]***
+ cd $MODALITY_ROOT/docker
+ docker-compose up
+
+
+=== 2. Start the Modality Server [red]***
+Start the Modality server by executing the run configuration:
+
+image::run-modality-server-locally-1.png[]
+
+
+=== 3. Start the Modality Back-Office (Desktop) client
+Start the Modality Back-Office (Desktop) client by executing run configuration:
+
+image::run-modality-back-office-desktop-locally-1.png[]
+
+The Back-Office (Desktop) GUI should then display:
 
 image::modality-back-office-desktop-1.png[]
 
 
-== Using Docker
-=== Connect to the Docker database container
-Connection is easily made via any Postgres client (e.g. DBeaver). Use the following credentials (contained within the `docker/.env-template` file):
-
- * Server: 127.0.0.1
- * Port: 5432
- * Database: modality
- * User: modality
- * Password: modality
+=== 4. Start the Modality Back-Office (Web) client
+NOTE: Documentation not yet available.
 
 
-=== Connect to the Docker session container
-Connection can be made through the Docker terminal:
-
- cd $MODALITY_ROOT/docker
- docker exec -ti session /bin/sh
- redis-cli
- keys *
+=== 5. Start the Modality Front-Office (Mobile) client
+NOTE: Documentation not yet available.
 
 
-=== Shut down Docker
-
- cd $MODALITY_ROOT/docker
- docker-compose down
-
-
-=== Destroy & rebuild the Docker containers
-Sometimes you will want a fresh set of containers. The simplest way to do this is:
-
- cd $MODALITY_ROOT/docker
- docker-compose down
- docker ps -a # Lists all Docker containers
- docker rm <container-id> # Remove any docker containers listed
- docker images # Lists all Docker images
- docker image rm <image-id> # Remove any docker images listed
- docker volume ls # Lists all Docker volumes
- docker volume rm <volume-id> # Remove all docker volumes listed
- docker system prune # Removes build cache, networks and dangling images
- rm -rf data # Removes locally stored database tables
-
-You can now rebuild the Docker containers:
-
- docker-compose build --no-cache
- docker-compose up
+=== 6. Start the Modality Front-Office (Web) client
+NOTE: Documentation not yet available.
 
 
 
@@ -226,6 +224,53 @@ If you wish to import this database, you will need to:
 
 == Modality Session
 The session data is controlled by the docker-based Redis container and is not persisted locally. The data persists only as long as the container is running.
+
+
+
+== Using Docker
+=== Connect to the Docker database container
+Connection is easily made via any Postgres client (e.g. DBeaver). Use the following credentials (contained within the `docker/.env-template` file):
+
+* Server: 127.0.0.1
+* Port: 5432
+* Database: modality
+* User: modality
+* Password: modality
+
+
+=== Connect to the Docker session container
+Connection can be made through the Docker terminal:
+
+ cd $MODALITY_ROOT/docker
+ docker exec -ti session /bin/sh
+ redis-cli
+ keys *
+
+
+=== Shut down Docker
+
+ cd $MODALITY_ROOT/docker
+ docker-compose down
+
+
+=== Destroy & rebuild the Docker containers
+Sometimes you will want a fresh set of containers. The simplest way to do this is:
+
+ cd $MODALITY_ROOT/docker
+ docker-compose down
+ docker ps -a # Lists all Docker containers
+ docker rm <container-id> # Remove any docker containers listed
+ docker images # Lists all Docker images
+ docker image rm <image-id> # Remove any docker images listed
+ docker volume ls # Lists all Docker volumes
+ docker volume rm <volume-id> # Remove all docker volumes listed
+ docker system prune # Removes build cache, networks and dangling images
+ rm -rf data # Removes locally stored database tables
+
+You can now rebuild the Docker containers:
+
+ docker-compose build --no-cache
+ docker-compose up
 
 
 
