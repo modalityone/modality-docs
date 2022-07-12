@@ -102,21 +102,13 @@ Modality is developed entirely in the Java language, and requires at least JDK 1
 If it is not installed, or is an older version, please refer to link:https://docs.oracle.com/en/java/javase/11/install/overview-jdk-installation.html#GUID-8677A77F-231A-40F7-98B9-1FD0B48C346A[this guide^].
 
 
-=== 2. Install JavaFX
-The user interfaces in Modality are partly built with JavaFX. Check whether JavaFX is installed with the following command:
-
- echo $PATH_TO_FX
-
-If it is not installed, please refer to link:https://openjfx.io/openjfx-docs/#install-javafx[this guide^].
-
-
-=== 3. Install IntelliJ IDEA
+=== 2. Install IntelliJ IDEA
 We develop Modality using the free, community edition of link:https://www.jetbrains.com/idea/[IntelliJ IDEA^], and recommend you install this if you do not already have an IDE. IntelliJ allows you to easily compile and run the Modality server and clients, for the purpose of local development and testing.
 
 NOTE: All subsequent IDE-based examples given in this documentation will be based on IntelliJ.
 
 
-=== 4. Install Docker
+=== 3. Install Docker
 During development, Modality uses Docker for all external services, including the database and the in-memory datastore for sessions.
 
 Please install Docker on your local machine if you do not have it already. If using a Mac, the easiest way is to install using `brew`. Please provide Docker with a minimum of 8GB of RAM, ideally more.
@@ -124,7 +116,7 @@ Please install Docker on your local machine if you do not have it already. If us
 NOTE: Insufficient RAM may result in `java.lang.OutOfMemoryError` errors when importing the link:https://github.com/mongoose-project/modality-dev-db[modality-dev-db^].
 
 
-=== 5. Install Git
+=== 4. Install Git
 A git client is needed to retrieve the Modality codebase from GitHub. Check if git is installed:
 
  git --version
@@ -132,20 +124,20 @@ A git client is needed to retrieve the Modality codebase from GitHub. Check if g
 If it is not installed, you may wish to refer to link:https://www.linode.com/docs/guides/how-to-install-git-on-linux-mac-and-windows/[this guide^].
 
 
-=== 6. Create the Modality root
+=== 5. Create the Modality root
 
  mkdir -vp modality
  export MODALITY_ROOT=${PWD}/modality
 
 
-=== 7. Clone the codebase
+=== 6. Clone the codebase
 Git clone the Modality codebase via the terminal (or IntelliJ etc):
 
  cd $MODALITY_ROOT
  git clone https://github.com/mongoose-project/modality.git .
 
 
-=== 8. Prepare Docker environment variables
+=== 7. Prepare Docker environment variables
 Environment variables store the Postgres database name, username and password. Defaults are provided in the `.env-template`. Use this template file as the basis for your Docker-based configuration, by creating an `.env` file from it. You may leave the defaults, or provide new values accordingly:
 
  cd $MODALITY_ROOT/docker
@@ -153,12 +145,12 @@ Environment variables store the Postgres database name, username and password. D
  source .env # make the environment variables available to the shell
 
 
-=== 9. Build the Docker containers
+=== 8. Build the Docker containers
  cd $MODALITY_ROOT/docker
  docker-compose build --no-cache
 
 
-=== 10. Start the containers to build the database
+=== 9. Start the containers to build the database
  cd $MODALITY_ROOT/docker
  docker-compose up
 
