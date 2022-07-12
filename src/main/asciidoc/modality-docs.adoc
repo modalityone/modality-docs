@@ -10,6 +10,8 @@ Last updated: {docdate}
 === What is Modality?
 Modality is a Java-based, modular, hospitality-oriented booking system. Multiple organisations, events and properties are supported, together with a wide range of hospitality-related add-ons, such as meals, transport, translation, special needs and more.
 
+Modality is the first large-scale project to use link:docs.webfx.dev[WebFX] - a toolkit which transpiles JavaFX applications into pure JavaScript web apps for direct execution in the browser.
+
 
 === The Modality Architecture
 Modality is developed using the following technologies:
@@ -17,40 +19,45 @@ Modality is developed using the following technologies:
 [cols="1,1,1"]
 |===
 | Technology | Purpose | Version
+
 | link:https://www.oracle.com/java/technologies/downloads/[Java] | Codebase | 18
-| link:https://openjfx.io/[JavaFX] | Desktop + mobile UI | 18
-| link:https://docs.webfx.dev/[WebFX] | Web UI | Latest (Beta)
+| link:https://openjfx.io/[JavaFX] | Desktop + mobile user interfaces | 18
+| link:https://docs.webfx.dev/[WebFX] | Web user interfaces | Latest (Beta)
 |===
 
 ...consists of four client applications:
 
 [cols="1,1,1"]
 |===
-| Application | Compilation Toolchain | User Type
-| Front-Office (Mobile) | Gluon | Customer
-| Front-Office (Web) | WebFX + GWT | Customer
-| Back-Office (Desktop) | JavaFX | Administrator
-| Back-Office (Web) | WebFX + GWT | Administrator
+| Application | Used By | Compilation Toolchain
+
+| Front-Office (Mobile) | Customer | Gluon
+| Front-Office (Web) | Customer | WebFX + GWT
+| Back-Office (Desktop) | Administrator | JavaFX
+| Back-Office (Web) | Administrator | WebFX + GWT
 |===
 
 ...one embedded web server:
 
 [cols="1,1,1"]
 |===
-| Technology | Purpose | Version
-| link:https://vertx.io/[Vert.x] | Web server | Latest
+| Application | Purpose | Version
+
+| link:https://vertx.io/[Vert.x] | Interface between client apps and back-end services | Latest
 |===
 
-...and the following set of back-end dependencies, which are orchestrated by link:https://www.docker.com/products/docker-desktop/[Docker] on the localhost:
+...and depends on the following services:
 
 [cols="1,1,1"]
 |===
-| Technology | Purpose | Version
+| Service | Purpose | Version
+
 | link:https://www.postgresql.org/[Postgres] | Database | 14.2
 | link:https://redis.io/[Redis] | Session management | 6.2.6
 | link:https://flywaydb.org/[Flyway] | Database schema updates | Latest
 |===
 
+The services are orchestrated by link:https://www.docker.com/products/docker-desktop/[Docker] when running Modality on the localhost (instructions given later in this document).
 
 
 == Installation
@@ -68,9 +75,12 @@ Git clone the Modality codebase via the terminal (or IntelliJ etc):
 
 
 === 3. Install Docker
-Modality uses Docker for all external services, including the database and the in-memory datastore for sessions, etc.
+Modality uses Docker for all external services, including the database and the in-memory datastore for sessions.
 
-Please install Docker on your local machine if you do not have it already. If using a Mac, the easiest way is to install using `brew`. Please provide Docker with a minimum of 8GB of RAM, ideally more. Insufficient RAM may result in `java.lang.OutOfMemoryError` errors when importing the link:https://github.com/mongoose-project/modality-dev-db[modality-dev-db^].
+Please install Docker on your local machine if you do not have it already. If using a Mac, the easiest way is to install using `brew`. Please provide Docker with a minimum of 8GB of RAM, ideally more.
+
+
+NOTE: Insufficient RAM may result in `java.lang.OutOfMemoryError` errors when importing the link:https://github.com/mongoose-project/modality-dev-db[modality-dev-db^].
 
 
 === 4. Prepare Docker environment variables
@@ -90,31 +100,44 @@ Environment variables store the Postgres database name, username and password. D
  cd $MODALITY_ROOT/docker
  docker-compose up
 
-The database scripts are stored in the `modality-base/modality-base-server-datasource/src/main/resources/db/` folder, and are executed sequentially by the link:https://flywaydb.org/[Flyway^] database version control container. Please allow several minutes for Flyway to complete. Once finished, you are now up and running with all the external services that Modality depends on.
+The database scripts are stored in the `modality-base/modality-base-server-datasource/src/main/resources/db/` folder, and are executed sequentially by the link:https://flywaydb.org/[Flyway^] database version control container. Please allow several minutes for Flyway to complete. Once finished, you will now up and running with all the external services that Modality depends on.
 
 
 === 7. Install your IDE
-We develop Modality using the free, community edition of link:https://www.jetbrains.com/idea/[IntelliJ IDEA], and recommend you install this if you do not already have an IDE. IntelliJ allows you to easily compile and run the Modality server and clients, for the purpose of local development and testing. All subsequent IDE-based examples given in this documentation will be based on IntelliJ.
+We develop Modality using the free, community edition of link:https://www.jetbrains.com/idea/[IntelliJ IDEA], and recommend you install this if you do not already have an IDE. IntelliJ allows you to easily compile and run the Modality server and clients, for the purpose of local development and testing.
+
+NOTE: All subsequent IDE-based examples given in this documentation will be based on IntelliJ.
 
 
-=== 8. Create Run Configuration for Modality Server
-In order to run any of the Modality client applications, the Modality server should first be running. The Modality server is a link:https://vertx.io/[Vert.x] server that proxies requests to the database and is responsible for establishing and maintaining sessions etc. The easiest way to stand up the server locally is to create a run configuration in your IDE, as shown below in IntelliJ. In the application menu, click `Run -> Edit Configurations`.
+=== 8. Create a Run Configuration for the Modality Server
+In order to run any of the Modality client applications, the Modality Server should first be running. The Modality Server is a link:https://vertx.io/[Vert.x] server that proxies requests to the database and is responsible for establishing and maintaining user sessions.
 
-image::run-configuration-modality-server.png[]
+The easiest way to stand up the server locally is to create an application run configuration in your IDE.
+
+In the IntelliJ menu, click `Run -> Edit Configurations` to display the following dialog, and populate with the same details:
+
+image::run-configuration-modality-server-1.png[]
+image::run-configuration-modality-server-2.png[]
+
+Click 'OK' to save the configuration and close the dialog.
 
 
-=== 9. Create Run Configuration for Modality Back-Office
-The Modality Back Office is the application used by administrators of Modality, and is where new organisations and events are created etc. Create another run configuration and populate it with the details given in the screenshot below:
+=== 9. Create a Run Configuration for the Modality Back-Office (Desktop) client
+The Modality Back-Office (Desktop) client is the application used by administrators of Modality, and is where new organisations and events are created etc.
 
-image::run-configuration-modality-back-office.png[]
+Create another run configuration and populate it with the details given in the screenshot below:
+
+image::run-configuration-modality-back-office-1.png[]
+
+Click 'OK' to save the configuration and close the dialog.
 
 
-=== 10. Run Modality Back-Office client locally
-<1> Execute the Modality Server run configuration, and wait until it is running
-<2> Execute the Modality Back-Office run configuration. The Back-Office GUI should then display, as shown below:
+=== 10. Run the Modality Back-Office (Desktop) client locally
+<1> Ensure Docker is running
+<2> Execute the Modality Server run configuration, and wait until it is running
+<2> Execute the Modality Back-Office (Desktop) run configuration. The Back-Office GUI should then display, as shown below:
 
-TO BE ADDED HERE
-
+image::modality-back-office-desktop-1.png[]
 
 
 == Using Docker
