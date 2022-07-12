@@ -16,7 +16,7 @@ Modality is an open-source, Java-based, hospitality-oriented booking system. Mul
 
 
 === Open-source
-Modality is licensed under the link:https://github.com/mongoose-project/mongoose/blob/main/LICENSE[Apache License Version 2.0], is completely free to use and modify, and is available on link:https://github.com/mongoose-project/mongoose[GitHub].
+Modality is licensed under the link:https://github.com/mongoose-project/mongoose/blob/main/LICENSE[Apache License Version 2.0^], is completely free to use and modify, and is available on link:https://github.com/mongoose-project/mongoose[GitHub^].
 
 
 
@@ -27,9 +27,9 @@ Modality is developed using the following technologies:
 |===
 | Technology | Purpose | Version
 
-| link:https://www.oracle.com/java/technologies/downloads/[Java] | Codebase | 18
-| link:https://openjfx.io/[JavaFX] | Desktop + mobile user interfaces | 18
-| link:https://docs.webfx.dev/[WebFX] | Web user interfaces | Latest (Beta)
+| link:https://www.oracle.com/java/technologies/downloads/[Java^] | Codebase | 18
+| link:https://openjfx.io/[JavaFX^] | Desktop + mobile user interfaces | 18
+| link:https://docs.webfx.dev/[WebFX^] | Web user interfaces | Latest (Beta)
 |===
 
 
@@ -62,7 +62,7 @@ Modality is developed using the following technologies:
 |===
 | Application | Purpose | Version
 
-| link:https://vertx.io/[Vert.x] | Interface between client apps and back-end services; serves the SPA | Latest
+| link:https://vertx.io/[Vert.x^] | Interface between client apps and back-end services; serves the SPA | Latest
 |===
 
 
@@ -72,20 +72,20 @@ Modality is developed using the following technologies:
 |===
 | Service | Purpose | Version
 
-| link:https://www.postgresql.org/[Postgres] | Database | 14.2
-| link:https://redis.io/[Redis] | Session management | 6.2.6
-| link:https://flywaydb.org/[Flyway] | Database schema updates | Latest
+| link:https://www.postgresql.org/[Postgres^] | Database | 14.2
+| link:https://redis.io/[Redis^] | Session management | 6.2.6
+| link:https://flywaydb.org/[Flyway^] | Database schema updates | Latest
 |===
 
-The services are orchestrated by link:https://www.docker.com/products/docker-desktop/[Docker] when running Modality on localhost (instructions given later in this document).
+The services are orchestrated by link:https://www.docker.com/products/docker-desktop/[Docker^] when running Modality on development machines (instructions given later in this document).
 
 
 === Native web applications
-Modality is the first large-scale Java project to use link:docs.webfx.dev[WebFX] - a toolkit that transpiles JavaFX applications into pure JavaScript web apps for direct execution in the browser.
+Modality is the first large-scale Java project to use link:https://docs.webfx.dev[WebFX^] - a toolkit that transpiles JavaFX applications into pure JavaScript web apps for direct execution in the browser.
 
 
 === Native mobile applications
-Modality uses the link:https://gluonhq.com/products/mobile/[Gluon] toolchain to compile the codebase into native, installable apps ready for inclusion into the Google Play and Apple App stores.
+Modality uses the link:https://gluonhq.com/products/mobile/[Gluon^] toolchain to compile the codebase into native, installable apps ready for inclusion into the Google Play and Apple App stores.
 
 
 === Native desktop applications
@@ -99,7 +99,7 @@ Modality is developed entirely in the Java language, and requires at least JDK 1
 
  java --version
 
-If it is not installed, or is an older version, you may wish to refer to link:https://docs.oracle.com/en/java/javase/11/install/overview-jdk-installation.html#GUID-8677A77F-231A-40F7-98B9-1FD0B48C346A[this guide] for quick and easy ways to install the latest Java JDK on your machine.
+If it is not installed, or is an older version, please refer to link:https://docs.oracle.com/en/java/javase/11/install/overview-jdk-installation.html#GUID-8677A77F-231A-40F7-98B9-1FD0B48C346A[this guide^].
 
 
 === 2. Install JavaFX
@@ -107,11 +107,11 @@ The user interfaces in Modality are partly built with JavaFX. Check whether Java
 
  echo $PATH_TO_FX
 
-If it is not installed, please refer to link:https://openjfx.io/openjfx-docs/#install-javafx[this guide].
+If it is not installed, please refer to link:https://openjfx.io/openjfx-docs/#install-javafx[this guide^].
 
 
 === 3. Install IntelliJ IDEA
-We develop Modality using the free, community edition of link:https://www.jetbrains.com/idea/[IntelliJ IDEA], and recommend you install this if you do not already have an IDE. IntelliJ allows you to easily compile and run the Modality server and clients, for the purpose of local development and testing.
+We develop Modality using the free, community edition of link:https://www.jetbrains.com/idea/[IntelliJ IDEA^], and recommend you install this if you do not already have an IDE. IntelliJ allows you to easily compile and run the Modality server and clients, for the purpose of local development and testing.
 
 NOTE: All subsequent IDE-based examples given in this documentation will be based on IntelliJ.
 
@@ -124,12 +124,12 @@ Please install Docker on your local machine if you do not have it already. If us
 NOTE: Insufficient RAM may result in `java.lang.OutOfMemoryError` errors when importing the link:https://github.com/mongoose-project/modality-dev-db[modality-dev-db^].
 
 
-=== 4. Install Git
-A git client is needed to retrieve the Modality codebase from GitHub. Check if git is installed with the following command:
+=== 5. Install Git
+A git client is needed to retrieve the Modality codebase from GitHub. Check if git is installed:
 
  git --version
 
-If it is not installed, you may wish to refer to link:https://www.linode.com/docs/guides/how-to-install-git-on-linux-mac-and-windows/[this guide].
+If it is not installed, you may wish to refer to link:https://www.linode.com/docs/guides/how-to-install-git-on-linux-mac-and-windows/[this guide^].
 
 
 === 6. Create the Modality root
@@ -170,7 +170,7 @@ Please allow several minutes for Flyway to complete. Once finished, you will now
 
 == Configure Modality for Development
 === Create a Run Configuration for Modality Server
-In order to run any of the Modality client applications, the Modality Server should first be running. The Modality Server is a link:https://vertx.io/[Vert.x] server that proxies requests to the database and is responsible for establishing and maintaining user sessions.
+In order to run any of the Modality client applications, the Modality Server should first be running. The Modality Server is a link:https://vertx.io/[Vert.x^] server that proxies requests to the database and is responsible for establishing and maintaining user sessions.
 
 The easiest way to stand up the server locally is to create an application run configuration in your IDE.
 
