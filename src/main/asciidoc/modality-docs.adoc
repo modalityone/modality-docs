@@ -15,7 +15,7 @@ Modality is a Java-based, modular, hospitality-oriented booking system. Multiple
 'Modality' is a fusion of two words, 'modular' and 'hospitality', a nod to both the software's design and purpose.
 
 
-=== The Modality Architecture
+== The Modality Architecture
 Modality is developed using the following technologies:
 
 [cols="1,1,1"]
@@ -27,7 +27,8 @@ Modality is developed using the following technologies:
 | link:https://docs.webfx.dev/[WebFX] | Web user interfaces | Latest (Beta)
 |===
 
-...consists of four client applications:
+
+...consists of three end-user client applications:
 
 [cols="1,1,1"]
 |===
@@ -35,9 +36,20 @@ Modality is developed using the following technologies:
 
 | Front-Office (Mobile) | Customer | Gluon
 | Front-Office (Web) | Customer | WebFX + GWT
-| Back-Office (Desktop) | Administrator | JavaFX
 | Back-Office (Web) | Administrator | WebFX + GWT
 |===
+
+
+...two developer client applications:
+
+[cols="1,1,1"]
+|===
+| Application | Used By | Compilation Toolchain
+
+| Back-Office (Desktop) | Developer | JavaFX
+| Front-Office (Desktop) | Developer | JavaFX
+|===
+
 
 ...one web server:
 
@@ -47,6 +59,7 @@ Modality is developed using the following technologies:
 
 | link:https://vertx.io/[Vert.x] | Interface between client apps and back-end services; serves the SPA | Latest
 |===
+
 
 ...and depends on the following services:
 
@@ -59,11 +72,19 @@ Modality is developed using the following technologies:
 | link:https://flywaydb.org/[Flyway] | Database schema updates | Latest
 |===
 
-The services are orchestrated by link:https://www.docker.com/products/docker-desktop/[Docker] when running Modality on the localhost (instructions given later in this document).
+The services are orchestrated by link:https://www.docker.com/products/docker-desktop/[Docker] when running Modality on localhost (instructions given later in this document).
 
 
-=== Introducing WebFX
-Modality is the first large-scale project to use link:docs.webfx.dev[WebFX] - a toolkit which transpiles JavaFX applications into pure JavaScript web apps for direct execution in the browser.
+=== Native web applications
+Modality is the first large-scale Java project to use link:docs.webfx.dev[WebFX] - a toolkit that transpiles JavaFX applications into pure JavaScript web apps for direct execution in the browser.
+
+
+=== Native mobile applications
+Modality uses the link:https://gluonhq.com/products/mobile/[Gluon] toolchain to compile the codebase into native, installable apps ready for inclusion into the Google Play and Apple App store.
+
+
+=== Native desktop applications
+Modality also provides desktop apps, which provide exactly the same UI as the web apps generated from the same source. This is useful for developers, allowing Java code to be rapidly developed and tested via the desktop, before subsequent transpilation into JavaScript and mobile (which takes time).
 
 
 
@@ -174,7 +195,7 @@ Start the Modality Back-Office (Desktop) client by executing run configuration:
 
 image::run-modality-back-office-desktop-locally-1.png[]
 
-The Back-Office (Desktop) GUI should then display:
+The Back-Office (Desktop) client should then display:
 
 image::modality-back-office-desktop-1.png[]
 
@@ -193,7 +214,7 @@ NOTE: Documentation not yet available.
 
 
 == Modality Database
-All database setup scripts are stored in the `modality-base/modality-base-server-datasource/src/main/resources/db/` folder, and are numbered in order of execution. Execution of the database scripts is performed automatically by the Flyway container, which runs on startup. All the data is stored on the host, in directory:
+All database setup scripts are stored in the `modality-base/modality-base-server-datasource/src/main/resources/db/` folder, and are numbered in order of execution. Execution of the database scripts is performed automatically by the Flyway container, which runs on Docker startup. All the data is stored on the host, in directory:
 
  $MODALITY_ROOT/docker/data/postgres/*
 
