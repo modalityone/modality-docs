@@ -8,11 +8,16 @@ Last updated: {docdate}
 
 == Introduction
 === What is Modality?
-Modality is a Java-based, modular, hospitality-oriented booking system. Multiple organisations, events and properties are supported, together with a wide range of hospitality-related add-ons, such as meals, transport, translation, special needs and more.
+Modality is an open-source, Java-based, hospitality-oriented booking system. Multiple organisations, events and properties are supported, together with a wide range of hospitality-related add-ons, such as meals, transport, translation, special needs and more.
 
 
 === Why the name?
 'Modality' is a fusion of two words, 'modular' and 'hospitality', a nod to both the software's design and purpose.
+
+
+=== Open-source
+Modality is licensed under the link:https://github.com/mongoose-project/mongoose/blob/main/LICENSE[Apache License Version 2.0], is completely free to use and modify, and is available on link:https://github.com/mongoose-project/mongoose[GitHub].
+
 
 
 == The Modality Architecture
