@@ -5,12 +5,51 @@
 :source-highlighter: pygments
 Last updated: {docdate}
 
+
 == Introduction
-
-
 === What is Modality?
+Modality is a Java-based, modular, hospitality-oriented booking system. Multiple organisations, events and properties are supported, together with a wide range of hospitality-related add-ons, such as meals, transport, translation, special needs and more.
 
-Modality is a modular hospitality system, supporting a wide range of bookable, customisable events, together with associated options, such as onsite/offsite accommodation, transport, meals, translation, etc...
+
+=== The Modality Architecture
+Modality is developed using the following technologies:
+
+[cols="1,1,1"]
+|===
+| Technology | Purpose | Version
+| link:https://www.oracle.com/java/technologies/downloads/[Java] | Codebase | 18
+| link:https://openjfx.io/[JavaFX] | Desktop + mobile UI | 18
+| link:https://docs.webfx.dev/[WebFX] | Web UI | Latest (Beta)
+|===
+
+...consists of four client applications:
+
+[cols="1,1,1"]
+|===
+| Application | Compilation Toolchain | User Type
+| Front-Office (Mobile) | Gluon | Customer
+| Front-Office (Web) | WebFX + GWT | Customer
+| Back-Office (Desktop) | JavaFX | Administrator
+| Back-Office (Web) | WebFX + GWT | Administrator
+|===
+
+...one embedded web server:
+
+[cols="1,1,1"]
+|===
+| Technology | Purpose | Version
+| link:https://vertx.io/[Vert.x] | Web server | Latest
+|===
+
+...and the following set of back-end dependencies, which are orchestrated by link:https://www.docker.com/products/docker-desktop/[Docker] on the localhost:
+
+[cols="1,1,1"]
+|===
+| Technology | Purpose | Version
+| link:https://www.postgresql.org/[Postgres] | Database | 14.2
+| link:https://redis.io/[Redis] | Session management | 6.2.6
+| link:https://flywaydb.org/[Flyway] | Database schema updates | Latest
+|===
 
 
 
@@ -51,25 +90,30 @@ Environment variables store the Postgres database name, username and password. D
  cd $MODALITY_ROOT/docker
  docker-compose up
 
-The database scripts are stored in the `modality-base/modality-base-server-datasource/src/main/resources/db/` folder, and are executed sequentially by the link:https://flywaydb.org/[Flyway^] database version control container. Please allow several minutes for Flyway to complete. Once finished, you
-are now up and running with all the external services that Modality depends on.
+The database scripts are stored in the `modality-base/modality-base-server-datasource/src/main/resources/db/` folder, and are executed sequentially by the link:https://flywaydb.org/[Flyway^] database version control container. Please allow several minutes for Flyway to complete. Once finished, you are now up and running with all the external services that Modality depends on.
 
 
-=== 7. Create Run Configuration for Modality Server
-The Modality server is a Vert.x server that proxies requests to the database and is responsible for establishing and maintaining sessions etc.
+=== 7. Install your IDE
+We develop Modality using the free, community edition of link:https://www.jetbrains.com/idea/[IntelliJ IDEA], and recommend you install this if you do not already have an IDE. IntelliJ allows you to easily compile and run the Modality server and clients, for the purpose of local development and testing. All subsequent IDE-based examples given in this documentation will be based on IntelliJ.
+
+
+=== 8. Create Run Configuration for Modality Server
+In order to run any of the Modality client applications, the Modality server should first be running. The Modality server is a link:https://vertx.io/[Vert.x] server that proxies requests to the database and is responsible for establishing and maintaining sessions etc. The easiest way to stand up the server locally is to create a run configuration in your IDE, as shown below in IntelliJ. In the application menu, click `Run -> Edit Configurations`.
 
 image::run-configuration-modality-server.png[]
 
 
-=== 8. Create Run Configuration for Modality Back Office
-The Modality back office is the application used by administrators of Modality, and is where new organisations and events are created etc.
+=== 9. Create Run Configuration for Modality Back-Office
+The Modality Back Office is the application used by administrators of Modality, and is where new organisations and events are created etc. Create another run configuration and populate it with the details given in the screenshot below:
 
 image::run-configuration-modality-back-office.png[]
 
 
-=== 9. Run Modality (locally)
+=== 10. Run Modality Back-Office client locally
 <1> Execute the Modality Server run configuration, and wait until it is running
-<2> Execute the Modality Back Office run configuration
+<2> Execute the Modality Back-Office run configuration. The Back-Office GUI should then display, as shown below:
+
+TO BE ADDED HERE
 
 
 
