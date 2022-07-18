@@ -16,11 +16,54 @@ Modality is an open-source, Java-based, hospitality-oriented booking system. Mul
 
 
 === Open-source
-Modality is licensed under the link:https://github.com/mongoose-project/mongoose/blob/main/LICENSE[Apache License Version 2.0^], is completely free to use and modify, and is available on link:https://github.com/mongoose-project/mongoose[GitHub^].
+Modality is licensed under the link:https://github.com/mongoose-project/modality/blob/main/LICENSE[Apache License Version 2.0^], is completely free to use and modify, and is available on link:https://github.com/mongoose-project/modality[GitHub^].
 
 
 
 == The Modality Architecture
+=== Layers
+Modality is divided into layers of functionality, shown below:
+
+[cols="1,1,1"]
+|===
+| Layer | Repository | Example modules
+
+| Business logic (top layer) | link:https://github.com/mongoose-project/modality[modality^] | modality-event, modality-hotel, modality-restaurant, modality-catering
+| Ecommerce | link:https://github.com/mongoose-project/modality[modality^] | modality-ecommerce
+| CRM | link:https://github.com/mongoose-project/modality[modality^] | modality-crm
+| Base | link:https://github.com/mongoose-project/modality[modality^] | modality-base
+| WebFX Stack | link:https://github.com/webfx-project/webfx-stack[webfx-stack^] | webfx-stack
+| WebFX (bottom layer) | link:https://github.com/webfx-project/webfx[webfx^] | webfx-kit
+|===
+
+==== Business logic
+The highest layer of the architecture consists of business-specific modules implementing logic for events, hotels, restaurants etc. This is a customisable layer, and developers can choose to add only the modules they need, as well as provide their own.
+
+==== Ecommerce
+The next layer down is the ecommerce layer. This provides a generic domain model for ecommerce, which models sales, accounts etc. It is the location for payment gateway integration and ecommerce-specific UIs.
+
+==== CRM
+The CRM layer provides the essential CRM features, including customer accounts, integrated mailing system etc.
+
+==== Base
+The Base layer is a fully operational implementation of the webfx-stack layer beneath, based on the Postgres database. This layer is a pure technical solution that isn't bound to any specific domain, and so is large in application scope.
+
+==== WebFX Stack
+The WebFX Stack layer provides an opinionated framework for developing enterprise applications with WebFX. This layer is responsible for communication between client and server (using a WebSocket bus), UI routing, ORM, push notification, auth, i18n, etc. The layer provides interfaces in all cases, but not always full implementations, so that it can be adapted to any kind of system.
+
+Unlike most Java frameworks, this layer works principally on the client side, following the trend initiated by mobile apps where most of the application code has been moved to the client and can run offline.
+
+It is designed to work with JavaFX (for example, i18n provides JavaFX bindings for use with any kind of control; and the authorisation framework automatically enables/disables and shows/hides controls depending on user access).
+
+==== WebFX
+WebFX is the foundation layer, providing a web port of JavaFX (in the webfx-kit module) that can be compiled by GWT together with your application code. It is a Java-based cross-platform solution that can be used in any domain.
+
+
+=== All-Layer Aggregation
+Modality ships with the `modality-all` module, which aggregates together the full set of modules across all layers, for use by developers right away.
+
+
+=== Technologies
 Modality is developed using the following technologies:
 
 [cols="1,1,1"]
@@ -80,15 +123,16 @@ Modality is developed using the following technologies:
 The services are orchestrated by link:https://www.docker.com/products/docker-desktop/[Docker^] when running Modality on development machines (instructions given later in this document).
 
 
-=== Native web applications
+== Native applications
+=== Web apps
 Modality is the first large-scale Java project to use link:https://docs.webfx.dev[WebFX^] - a toolkit that transpiles JavaFX applications into pure JavaScript web apps for direct execution in the browser.
 
 
-=== Native mobile applications
+=== Mobile apps
 Modality uses the link:https://gluonhq.com/products/mobile/[Gluon^] toolchain to compile the codebase into native, installable apps ready for inclusion into the Google Play and Apple App stores.
 
 
-=== Native desktop applications
+=== Desktop apps
 Modality also provides desktop apps, which provide exactly the same UI as the web apps generated from the same source. This is useful for developers, allowing Java code to be rapidly developed and tested via the desktop, before subsequent transpilation into JavaScript and mobile (which takes time).
 
 
