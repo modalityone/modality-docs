@@ -214,7 +214,7 @@ Please allow several minutes for Flyway to complete. Once finished, you will now
 
 
 == Configure Modality for Development
-=== Create a Run Configuration for the Modality Server
+=== Create Run Configuration for Modality Server
 In order to run any of the Modality client applications, the Modality Server should first be running. The Modality Server is a link:https://vertx.io/[Vert.x^] server that proxies requests to the database and is responsible for establishing and maintaining user sessions.
 
 The easiest way to stand up the server locally is to create an application run configuration in your IDE.
@@ -227,7 +227,7 @@ image::run-configuration-modality-server-2.png[]
 Click 'OK' to save the configuration and close the dialog.
 
 
-=== Create a Run Configuration for the Back-Office Desktop client
+=== Create Run Configuration for Back-Office Desktop client
 The Back-Office Desktop client is an application used by developers of Modality, and emulates the web user interface used by administrators of the system.
 
 Create another run configuration and populate it with the details given in the screenshot below:
@@ -237,15 +237,15 @@ image::run-configuration-modality-back-office-1.png[]
 Click 'OK' to save the configuration and close the dialog.
 
 
-=== Create a Run Configuration for the Back-Office Web client
+=== Create Run Configuration for Back-Office Web client
 NOTE: We use the WebFX CLI to build web clients (described later), so no run configuration necessary.
 
 
-=== Create a Run Configuration for the Front-Office Mobile client
+=== Create Run Configuration for Front-Office Mobile client
 NOTE: The Front-Office Mobile client is not yet implemented.
 
 
-=== Create a Run Configuration for the Front-Office Web client
+=== Create Run Configuration for Front-Office Web client
 NOTE: The Front-Office Web client is not yet implemented.
 
 
@@ -259,13 +259,13 @@ The Modality clients run independently of each other, but all require the Modali
  docker-compose up
 
 
-=== Build & run the Modality Server [red]***
+=== Build & run Modality Server [red]***
 Build and run the server by executing its run configuration:
 
 image::run-modality-server-locally-1.png[]
 
 
-=== Build and run the Back-Office Desktop client
+=== Build & run Back-Office Desktop client
 Build and run the Back-Office Desktop client by executing its configuration:
 
 image::run-modality-back-office-desktop-locally-1.png[]
@@ -275,7 +275,7 @@ The Back-Office Desktop client should then display:
 image::modality-back-office-desktop-1.png[]
 
 
-=== Build and open the Back-Office Web client
+=== Build & open Back-Office Web client
 First *build* the index.html file:
 
  cd $MODALITY_ROOT
@@ -296,11 +296,11 @@ Or *run* the resultant index.html file directly, without worrying about its loca
  webfx run --gwt
 
 
-=== Build and run the Front-Office Mobile client
+=== Build & run Front-Office Mobile client
 NOTE: The Front-Office Mobile client is not yet implemented.
 
 
-=== Build and open the Front-Office Web client
+=== Build & open Front-Office Web client
 NOTE: The Front-Office Web client is not yet implemented.
 
 
