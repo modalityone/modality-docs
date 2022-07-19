@@ -22,7 +22,7 @@ Modality is licensed under the link:https://github.com/mongoose-project/modality
 
 == The Modality Architecture
 === Java for the Web
-Modality is the first large-scale Java project to use link:https://docs.webfx.dev[WebFX^] - a toolkit that transpiles JavaFX applications into pure JavaScript web apps for direct execution in the browser.
+Modality is the first large-scale Java project to use link:https://preview.webfx.dev[WebFX^] - a toolkit that transpiles JavaFX applications into pure JavaScript web apps for direct execution in the browser.
 
 
 === Technologies
@@ -44,9 +44,9 @@ Modality is developed using the following technologies:
 |===
 | Application | Used By | Compilation Toolchain
 
-| Front-Office (Mobile) | Customer | Gluon
-| Front-Office (Web) | Customer | WebFX + GWT
-| Back-Office (Web) | Administrator | WebFX + GWT
+| Front-Office Mobile | Customer | Gluon
+| Front-Office Web | Customer | WebFX + GWT
+| Back-Office Web | Administrator | WebFX + GWT
 |===
 
 
@@ -56,8 +56,8 @@ Modality is developed using the following technologies:
 |===
 | Application | Used By | Compilation Toolchain
 
-| Back-Office (Desktop) | Developer | JavaFX
-| Front-Office (Desktop) | Developer | JavaFX
+| Back-Office Desktop | Developer | JavaFX
+| Front-Office Desktop | Developer | JavaFX
 |===
 
 
@@ -151,13 +151,17 @@ Modality is developed entirely in the Java language, and requires at least JDK 1
 If it is not installed, or is an older version, please refer to link:https://docs.oracle.com/en/java/javase/11/install/overview-jdk-installation.html#GUID-8677A77F-231A-40F7-98B9-1FD0B48C346A[this guide^].
 
 
-=== 2. Install IntelliJ IDEA
+=== 2. Install WebFX CLI
+We use the WebFX CLI to compile Modality for the web. Please follow this link:https://docs.webfx.dev/#_installing_the_webfx_cli[guide^] to install it.
+
+
+=== 3. Install IntelliJ IDEA
 We develop Modality using the free, community edition of link:https://www.jetbrains.com/idea/[IntelliJ IDEA^], and recommend you install this if you do not already have an IDE. IntelliJ allows you to easily compile and run the Modality server and clients, for the purpose of local development and testing.
 
 NOTE: All subsequent IDE-based examples given in this documentation will be based on IntelliJ.
 
 
-=== 3. Install Docker
+=== 4. Install Docker
 During development, Modality uses Docker for all external services, including the database and the in-memory datastore for sessions.
 
 Please install Docker on your local machine if you do not have it already. If using a Mac, the easiest way is to install using `brew`. Please provide Docker with a minimum of 8GB of RAM, ideally more.
@@ -165,7 +169,7 @@ Please install Docker on your local machine if you do not have it already. If us
 NOTE: Insufficient RAM may result in `java.lang.OutOfMemoryError` errors when importing the link:https://github.com/mongoose-project/modality-dev-db[modality-dev-db^].
 
 
-=== 4. Install Git
+=== 5. Install Git
 A git client is needed to retrieve the Modality codebase from GitHub. Check if git is installed:
 
  git --version
@@ -173,20 +177,20 @@ A git client is needed to retrieve the Modality codebase from GitHub. Check if g
 If it is not installed, you may wish to refer to link:https://www.linode.com/docs/guides/how-to-install-git-on-linux-mac-and-windows/[this guide^].
 
 
-=== 5. Create the Modality root
+=== 6. Create the Modality root
 
  mkdir -vp modality
  export MODALITY_ROOT=${PWD}/modality
 
 
-=== 6. Clone the codebase
+=== 7. Clone the codebase
 Git clone the Modality codebase via the terminal (or IntelliJ etc):
 
  cd $MODALITY_ROOT
  git clone https://github.com/mongoose-project/modality.git .
 
 
-=== 7. Prepare Docker environment variables
+=== 8. Prepare Docker environment variables
 Environment variables store the Postgres database name, username and password. Defaults are provided in the `.env-template`. Use this template file as the basis for your Docker-based configuration, by creating an `.env` file from it. You may leave the defaults, or provide new values accordingly:
 
  cd $MODALITY_ROOT/docker
@@ -194,12 +198,12 @@ Environment variables store the Postgres database name, username and password. D
  source .env # make the environment variables available to the shell
 
 
-=== 8. Build the Docker containers
+=== 9. Build the Docker containers
  cd $MODALITY_ROOT/docker
  docker-compose build --no-cache
 
 
-=== 9. Start the containers to build the database
+=== 10. Start the containers to build the database
  cd $MODALITY_ROOT/docker
  docker-compose up
 
@@ -210,7 +214,7 @@ Please allow several minutes for Flyway to complete. Once finished, you will now
 
 
 == Configure Modality for Development
-=== Create a Run Configuration for Modality Server
+=== Create a Run Configuration for the Modality Server
 In order to run any of the Modality client applications, the Modality Server should first be running. The Modality Server is a link:https://vertx.io/[Vert.x^] server that proxies requests to the database and is responsible for establishing and maintaining user sessions.
 
 The easiest way to stand up the server locally is to create an application run configuration in your IDE.
@@ -223,8 +227,8 @@ image::run-configuration-modality-server-2.png[]
 Click 'OK' to save the configuration and close the dialog.
 
 
-=== Create a Run Configuration for Modality Back-Office (Desktop) client
-The Modality Back-Office (Desktop) client is an application used by developers of Modality, and emulates the web user interface used by administrators of the system.
+=== Create a Run Configuration for the Back-Office Desktop client
+The Back-Office Desktop client is an application used by developers of Modality, and emulates the web user interface used by administrators of the system.
 
 Create another run configuration and populate it with the details given in the screenshot below:
 
@@ -233,16 +237,16 @@ image::run-configuration-modality-back-office-1.png[]
 Click 'OK' to save the configuration and close the dialog.
 
 
-=== Create a Run Configuration for Modality Back-Office (Web) client
-NOTE: Documentation not yet available.
+=== Create a Run Configuration for the Back-Office Web client
+NOTE: We use the WebFX CLI to build web clients (described later), so no run configuration necessary.
 
 
-=== Create a Run Configuration for Modality Front-Office (Mobile) client
-NOTE: Documentation not yet available.
+=== Create a Run Configuration for the Front-Office Mobile client
+NOTE: The Front-Office Mobile client is not yet implemented.
 
 
-=== Create a Run Configuration for Modality Front-Office (Web) client
-NOTE: Documentation not yet available.
+=== Create a Run Configuration for the Front-Office Web client
+NOTE: The Front-Office Web client is not yet implemented.
 
 
 
@@ -255,32 +259,49 @@ The Modality clients run independently of each other, but all require the Modali
  docker-compose up
 
 
-=== Start the Modality Server [red]***
-Start the Modality server by executing the run configuration:
+=== Build & run the Modality Server [red]***
+Build and run the server by executing its run configuration:
 
 image::run-modality-server-locally-1.png[]
 
 
-=== Start Modality Back-Office (Desktop) client
-Start the Modality Back-Office (Desktop) client by executing run configuration:
+=== Build and run the Back-Office Desktop client
+Build and run the Back-Office Desktop client by executing its configuration:
 
 image::run-modality-back-office-desktop-locally-1.png[]
 
-The Back-Office (Desktop) client should then display:
+The Back-Office Desktop client should then display:
 
 image::modality-back-office-desktop-1.png[]
 
 
-=== Start Modality Back-Office (Web) client
-NOTE: Documentation not yet available.
+=== Build and open the Back-Office Web client
+First *build* the index.html file:
+
+ cd $MODALITY_ROOT
+ webfx build --gwt
+
+Then either *locate* the resultant index.html file and open in a browser:
+
+ webfx build --gwt --locate
+ <open file in browser>
+
+Or *reveal* the resultant index.html file in file explorer, and double-click to open in a browser:
+
+ webfx build --gwt --reveal
+ <open file in browser>
+
+Or *run* the resultant index.html file directly, without worrying about its location:
+
+ webfx run --gwt
 
 
-=== Start Modality Front-Office (Mobile) client
-NOTE: Documentation not yet available.
+=== Build and run the Front-Office Mobile client
+NOTE: The Front-Office Mobile client is not yet implemented.
 
 
-=== Start the Modality Front-Office (Web) client
-NOTE: Documentation not yet available.
+=== Build and open the Front-Office Web client
+NOTE: The Front-Office Web client is not yet implemented.
 
 
 
