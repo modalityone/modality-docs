@@ -42,15 +42,16 @@ Modality is developed using the following technologies:
 |===
 
 
-...consists of three end-user client applications:
+...consists of four end-user client applications:
 
 [cols="1,1,1"]
 |===
 | Application | Used By | Compilation Toolchain
 
-| Front-Office Mobile | Customer | Gluon
-| Front-Office Web | Customer | WebFX + GWT
 | Back-Office Web | Administrator | WebFX + GWT
+| Back-Office Mobile | Administrator | Gluon
+| Front-Office Web | Customer | WebFX + GWT
+| Front-Office Mobile | Customer | Gluon
 |===
 
 
@@ -218,7 +219,7 @@ Please allow several minutes for Flyway to complete. Once finished, you will now
 
 
 == Configure Modality for Development
-=== Create Run Configuration for Modality Server
+=== Modality Server
 In order to run any of the Modality client applications, the Modality Server should first be running. The Modality Server is a link:https://vertx.io/[Vert.x^] server that proxies requests to the database and is responsible for establishing and maintaining user sessions.
 
 The easiest way to stand up the server locally is to create an application run configuration in your IDE.
@@ -231,7 +232,7 @@ image::run-configuration-modality-server-2.png[]
 Click 'OK' to save the configuration and close the dialog.
 
 
-=== Create Run Configuration for Back-Office Desktop client
+=== Back-Office Desktop
 The Back-Office Desktop client is an application used by developers of Modality, and emulates the web user interface used by administrators of the system.
 
 Create another run configuration and populate it with the details given in the screenshot below:
@@ -241,35 +242,29 @@ image::run-configuration-modality-back-office-1.png[]
 Click 'OK' to save the configuration and close the dialog.
 
 
-=== Create Run Configuration for Back-Office Web client
-NOTE: We use the WebFX CLI to build web clients (described later), so no run configuration necessary.
-
-
-=== Create Run Configuration for Front-Office Mobile client
-NOTE: The Front-Office Mobile client is not yet implemented.
-
-
-=== Create Run Configuration for Front-Office Web client
-NOTE: The Front-Office Web client is not yet implemented.
+=== Front-Office Desktop
+NOTE: The Front-Office Desktop client is not yet implemented.
 
 
 
-== Run Modality on Development
+== Build & Run Modality on Development
 The Modality clients run independently of each other, but all require the Modality Server to be running, which in turn requires Docker to be running the service containers described above. Therefore, the first two steps below are mandatory before running one or more of the Modality clients locally.
 
 
-=== Ensure Docker is running [red]***
+=== Docker [red]***
+Ensure that Docker is running:
+
  cd $MODALITY_ROOT/docker
  docker-compose up
 
 
-=== Build & run Modality Server [red]***
+=== Modality Server [red]***
 Build and run the server by executing its run configuration:
 
 image::run-modality-server-locally-1.png[]
 
 
-=== Build & run Back-Office Desktop client
+=== Back-Office Desktop
 Build and run the Back-Office Desktop client by executing its configuration:
 
 image::run-modality-back-office-desktop-locally-1.png[]
@@ -279,7 +274,7 @@ The Back-Office Desktop client should then display:
 image::modality-back-office-desktop-1.png[]
 
 
-=== Build & open Back-Office Web client
+=== Back-Office Web
 First *build* the index.html file:
 
  cd $MODALITY_ROOT
@@ -300,12 +295,20 @@ Or *run* the resultant index.html file directly, without worrying about its loca
  webfx run --gwt
 
 
-=== Build & run Front-Office Mobile client
-NOTE: The Front-Office Mobile client is not yet implemented.
+=== Back-Office Mobile
+Full instructions (and limitations) for compiling the codebase to native Android and iOS apps are available on the WebFX documentation site link:https://docs.webfx.dev/#_android_platform[here].
 
 
-=== Build & open Front-Office Web client
+=== Front-Office Desktop
+NOTE: The Front-Office Desktop client is not yet implemented.
+
+
+=== Front-Office Web
 NOTE: The Front-Office Web client is not yet implemented.
+
+
+=== Front-Office Mobile
+NOTE: The Front-Office Mobile client is not yet implemented.
 
 
 
@@ -329,20 +332,20 @@ Once a new script has been added to the folder, the Flyway container should be r
 
 
 
-== Modality Development Database
-The Modality project additionally provides a development database that is pre-populated with test data, available from the link:https://github.com/mongoose-project/modality-dev-db[modality-dev-db^] repository.
+// == Modality Development Database
+// The Modality project additionally provides a development database that is pre-populated with test data, available from the link:https://github.com/mongoose-project/modality-dev-db[modality-dev-db^] repository.
 
-If you wish to import this database, you will need to:
+// If you wish to import this database, you will need to:
 
-<1> shut down the Modality server
-<2> shut down the docker containers
-<3> delete the `docker/data/` folder
-<4> download the link:https://github.com/mongoose-project/modality-dev-db[modality-dev-db^] repository
-<5> decompress the `V0001__modality_dev_db.sql.zip` file in the modality-dev-db repository
-<6> move the unzipped `V0001__modality_dev_db.sql` to the `modality-base/modality-base-server-datasource/src/main/resources/db/` folder
-<7> move all the other scripts temporarily out of the folder
-<8> restart the docker containers - this will auto-import the development database
-<9> wait until the import is complete. Due to the size of the development database, it can take 20+ minutes to import. Modality will not be usable during this time.
+// <1> shut down the Modality server
+// <2> shut down the docker containers
+// <3> delete the `docker/data/` folder
+// <4> download the link:https://github.com/mongoose-project/modality-dev-db[modality-dev-db^] repository
+// <5> decompress the `V0001__modality_dev_db.sql.zip` file in the modality-dev-db repository
+// <6> move the unzipped `V0001__modality_dev_db.sql` to the `modality-base/modality-base-server-datasource/src/main/resources/db/` folder
+// <7> move all the other scripts temporarily out of the folder
+// <8> restart the docker containers - this will auto-import the development database
+// <9> wait until the import is complete. Due to the size of the development database, it can take 20+ minutes to import. Modality will not be usable during this time.
 
 
 
