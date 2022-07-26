@@ -26,7 +26,7 @@ Modality is licensed under the link:https://github.com/mongoose-project/modality
 
 == The Modality Architecture
 === Java for the Web
-Modality is the first large-scale Java project to use link:https://preview.webfx.dev[WebFX^] - a toolkit that transpiles JavaFX applications into pure JavaScript web apps for direct execution in the browser.
+Modality is the first large-scale Java project to use link:https://webfx.dev[WebFX^] - a toolkit that transpiles JavaFX applications into pure JavaScript web apps for direct execution in the browser.
 
 
 === Technologies
