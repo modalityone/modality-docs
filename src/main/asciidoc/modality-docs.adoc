@@ -8,7 +8,40 @@ Last updated: {docdate}
 
 == Introduction
 === What is Modality?
-Modality is an open-source, Java-based, hospitality-oriented booking system. Multiple organisations, events and properties are supported, together with a wide range of hospitality-related add-ons, such as meals, transport, translation, special needs and more.
+Modality is a free, open-source, hospitality-oriented booking system, currently in development. It will support significant event complexity, unmatched by any existing open or closed-source solution.
+
+Modality will support:
+
+- short events (1 evening, 1 day, 1 weekend,...)
+- long events (1 month, 6 weeks,...)
+- recurring events (daily, weekly, monthly,...)
+- full attendance, or partial attendance
+- multiple venues
+- translation option for international events
+- multiple accommodation locations (including onsite accommodation and partner hotels)
+- multiple accommodation types (potentially specific to each location)
+- shuttles (for example: airport shuttles at beginning and end of events)
+- daily shuttles (transport from hotels to the venues)
+- parking for different vehicle types
+- catering options: multiple meals (breakfast, lunch, supper,...) with multiple diet options (vegetarian, vegan,...) and multiple sittings (first sitting, second sitting,...)
+- individual allocation (rooms, sittings,...)
+- bulk allocation (with rules to be entered)
+- long stays (staff, visitors, residents,...)
+- registration features (instant search, filters, modification, cancellation, confirmation,...)
+- individual email notifications
+- bulk email (newsletters, information letters,...)
+- hot target emailing (triggered when specific booking options matched, booking state changes,...)
+- multi-stage variable payments (for example: 25% min deposit, then 50% after a cutoff date,...)
+- discounts (children, early booking,...)
+- detailed statistics
+
+Modality has the potential to support the following:
+
+- event-oriented organisations
+- hotels
+- shops (time-limited or permanent, with online option)
+- cafes/restaurants (time-limited or permanent, with online option)
+
 
 
 === Why the name?
@@ -275,24 +308,24 @@ image::modality-back-office-desktop-1.png[]
 
 
 === Back-Office Web
-First *build* the index.html file:
+<1> First *build* the index.html file:
 
  cd $MODALITY_ROOT
  webfx build --gwt
 
-Then either *locate* the resultant index.html file and open in a browser:
+<2> Then *locate* the resultant index.html file on the filesystem:
 
  webfx build --gwt --locate
- <open file in browser>
 
-Or *reveal* the resultant index.html file in file explorer, and double-click to open in a browser:
+<3> In the IntelliJ Project window, navigate to the index file and double click.
 
- webfx build --gwt --reveal
- <open file in browser>
+image::modality-project-window-index-html-1.png[]
 
-Or *run* the resultant index.html file directly, without worrying about its location:
+<4> Hover the mouse over the index.html source code to display the browser options.
 
- webfx run --gwt
+image::modality-project-window-index-html-2.png[]
+
+<5> Click on one of the browser icons to run the index.html in a browser.
 
 
 === Back-Office Mobile
