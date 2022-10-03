@@ -228,7 +228,14 @@ Git clone the Modality codebase via the terminal (or IntelliJ etc):
  git clone https://github.com/modalityone/modality.git .
 
 
-=== 8. Prepare Docker environment variables
+=== 8. Unzip the development database
+The Modality codebase includes a 15Mb zip file of example data, that makes it easier for developers to navigate around the running system. Execute the following commands to unzip the database, ready for later ingestion into Postgres:
+
+ cd $MODALITY_ROOT/modality-base/modality-base-server-datasource/src/main/resources
+ unzip db-dev/V0001__modality_dev_db.sql.zip -x '__MACOSX/*' -d db/
+
+
+=== 9. Prepare Docker environment variables
 Environment variables store the Postgres database name, username and password. Defaults are provided in the `.env-template`. Use this template file as the basis for your Docker-based configuration, by creating an `.env` file from it. You may leave the defaults, or provide new values accordingly:
 
  cd $MODALITY_ROOT/docker
@@ -236,24 +243,20 @@ Environment variables store the Postgres database name, username and password. D
  source .env # make the environment variables available to the shell
 
 
-=== 9. Build the Docker containers
+=== 10. Build the Docker containers
  cd $MODALITY_ROOT/docker
  docker-compose build --no-cache
 
 
-=== 10. Start the containers to build the database
+=== 11. Start the containers to build the database
  cd $MODALITY_ROOT/docker
  docker-compose up
-
-The database scripts are stored in the `modality-base/modality-base-server-datasource/src/main/resources/db/` folder, and are executed sequentially by the link:https://flywaydb.org/[Flyway^] database version control container.
-
-Please allow several minutes for Flyway to complete. Once finished, you will now up and running with all the external services that Modality depends on.
 
 
 
 == Configure Modality for Development
 === Resolve all Modality Dependencies
-Open Modality in IntelliJ and wait for all dependencies to be resolved:
+Open Modality in IntelliJ and wait for all dependencies to be automatically resolved:
 
 image::resolve-dependencies-1.png[]
 
@@ -308,9 +311,17 @@ Build and run the Back-Office Desktop client by executing its configuration:
 
 image::run-modality-back-office-desktop-locally-1.png[]
 
-The Back-Office Desktop client should then display:
+The Back-Office Desktop client will then be ready to use:
 
 image::modality-back-office-desktop-1.png[]
+image::modality-back-office-desktop-2.png[]
+image::modality-back-office-desktop-3.png[]
+image::modality-back-office-desktop-4.png[]
+image::modality-back-office-desktop-5.png[]
+image::modality-back-office-desktop-6.png[]
+image::modality-back-office-desktop-7.png[]
+image::modality-back-office-desktop-8.png[]
+image::modality-back-office-desktop-9.png[]
 
 
 === Back-Office Web
@@ -352,7 +363,7 @@ NOTE: The Front-Office Mobile client is not yet implemented.
 
 
 == Modality Database
-All database setup scripts are stored in the `modality-base/modality-base-server-datasource/src/main/resources/db/` folder, and are numbered in order of execution. Execution of the database scripts is performed automatically by the Flyway container, which runs on Docker startup. All the data is stored on the host, in directory:
+All database setup scripts are stored in the `$MODALITY_ROOT/modality-base/modality-base-server-datasource/src/main/resources/db-pristine/` folder, and are numbered in order of execution. They should be copied into the `$MODALITY_ROOT/modality-base/modality-base-server-datasource/src/main/resources/db/` deployment folder where they will then be executed by the Flyway container, which runs on Docker startup. All the data will then be stored on the host, in directory:
 
  $MODALITY_ROOT/docker/data/postgres/*
 
@@ -360,32 +371,21 @@ This provides persistence, and the container can be safely shut down and restart
 
 Any new database scripts must be:
 
-<1> added to the same `modality-base/modality-base-server-datasource/src/main/resources/db/` folder
-<2> named according to the convention used in the folder: `V{number}__{desc}.sql`
+<1> added to the `$MODALITY_ROOT/modality-base/modality-base-server-datasource/src/main/resources/db-pristine/` folder
+<2> named according to the convention used in the folder: `V{latest-number+1}__{desc}.sql`
+<3> copied into the `$MODALITY_ROOT/modality-base/modality-base-server-datasource/src/main/resources/db/` deployment folder
+<4> executed by Flyway by restarting Docker:
 
-Once a new script has been added to the folder, the Flyway container should be restarted, in order to apply the change. The easiest way to do this is to simply restart docker-compose:
-
+ cd $MODALITY_ROOT/modality-base/modality-base-server-datasource/src/main/resources/
+ .
+ # Create the new SQL file and copy to the deployment directory
+ touch db-pristine/V0100__new_table.sql
+ cp db-pristine/V0100__new_table.sql db/V0100__new_table.sql
+ .
+ # Now restart Docker
  cd $MODALITY_ROOT/docker
  docker-compose down
  docker-compose up
-
-
-
-== Modality Development Database
-The Modality project additionally provides a development database that is pre-populated with test data, available from the link:https://github.com/modalityone/modality-dev-db[modality-dev-db^] repository.
-
-If you wish to import this database, you will need to:
-
-<1> shut down the Modality server
-<2> shut down the Docker containers
-<3> delete the `docker/data/` folder
-<4> <<prune_docker_content, prune all docker content>>
-<5> download the link:https://github.com/modalityone/modality-dev-db[modality-dev-db^] repository
-<6> decompress the `V0001__modality_dev_db.sql.zip` file in the modality-dev-db repository
-<7> move the unzipped `V0001__modality_dev_db.sql` to the `modality-base/modality-base-server-datasource/src/main/resources/db/` folder
-<8> move all the other scripts temporarily out of the folder
-<9> restart the docker containers - this will auto-import the development database
-<10> wait until the import is complete. Due to the size of the development database, it can take 15+ minutes to import. Modality will not be usable during this time.
 
 
 
