@@ -385,7 +385,7 @@ If you wish to import this database, you will need to:
 <7> move the unzipped `V0001__modality_dev_db.sql` to the `modality-base/modality-base-server-datasource/src/main/resources/db/` folder
 <8> move all the other scripts temporarily out of the folder
 <9> restart the docker containers - this will auto-import the development database
-<10> wait until the import is complete. Due to the size of the development database, it can take 30+ minutes to import. Modality will not be usable during this time.
+<10> wait until the import is complete. Due to the size of the development database, it can take 15+ minutes to import. Modality will not be usable during this time.
 
 
 
