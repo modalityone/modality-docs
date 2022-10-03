@@ -53,7 +53,7 @@ Modality is in the very early stages of active development. Whilst the server an
 
 
 === Open-source
-Modality is licensed under the link:https://github.com/mongoose-project/modality/blob/main/LICENSE[Apache License Version 2.0^], is completely free to use and modify, and is available on link:https://github.com/mongoose-project/modality[GitHub^].
+Modality is licensed under the link:https://github.com/modalityone/modality/blob/main/LICENSE[Apache License Version 2.0^], is completely free to use and modify, and is available on link:https://github.com/modalityone/modality[GitHub^].
 
 
 
@@ -130,10 +130,10 @@ Modality is divided into layers of functionality, shown below:
 |===
 | Layer | Repository | Java Modules
 
-| Business Logic (top layer) | link:https://github.com/mongoose-project/modality[modality^] | modality-event, modality-hotel, modality-restaurant, modality-catering
-| Ecommerce | link:https://github.com/mongoose-project/modality[modality^] | modality-ecommerce
-| CRM | link:https://github.com/mongoose-project/modality[modality^] | modality-crm
-| Base | link:https://github.com/mongoose-project/modality[modality^] | modality-base
+| Business Logic (top layer) | link:https://github.com/modalityone/modality[modality^] | modality-event, modality-hotel, modality-restaurant, modality-catering
+| Ecommerce | link:https://github.com/modalityone/modality[modality^] | modality-ecommerce
+| CRM | link:https://github.com/modalityone/modality[modality^] | modality-crm
+| Base | link:https://github.com/modalityone/modality[modality^] | modality-base
 | WebFX Stack | link:https://github.com/webfx-project/webfx-stack[webfx-stack^] | webfx-stack
 | WebFX (bottom layer) | link:https://github.com/webfx-project/webfx[webfx^] | webfx-kit
 |===
@@ -200,11 +200,11 @@ NOTE: All subsequent IDE-based examples given in this documentation will be base
 
 
 === 4. Install Docker
-During development, Modality uses Docker for all external services, including the database and the in-memory datastore for sessions.
+During development, Modality uses link:https://www.docker.com/products/docker-desktop/[Docker^] for all external services, including the database and the in-memory datastore for sessions.
 
-Please install Docker on your local machine if you do not have it already. If using a Mac, the easiest way is to install using `brew`. Please provide Docker with a minimum of 8GB of RAM, ideally more.
+Please install link:https://www.docker.com/products/docker-desktop/[Docker Desktop^] on your local machine if you do not have it already. If using a Mac, the easiest way is to install using `brew`. Please provide Docker with a minimum of 8GB of RAM, ideally more.
 
-NOTE: Insufficient RAM may result in `java.lang.OutOfMemoryError` errors when importing the link:https://github.com/mongoose-project/modality-dev-db[modality-dev-db^].
+NOTE: Insufficient RAM may result in `java.lang.OutOfMemoryError` errors when importing the link:https://github.com/modalityone/modality-dev-db[modality-dev-db^].
 
 
 === 5. Install Git
@@ -225,7 +225,7 @@ If it is not installed, you may wish to refer to link:https://www.linode.com/doc
 Git clone the Modality codebase via the terminal (or IntelliJ etc):
 
  cd $MODALITY_ROOT
- git clone https://github.com/mongoose-project/modality.git .
+ git clone https://github.com/modalityone/modality.git .
 
 
 === 8. Prepare Docker environment variables
@@ -252,10 +252,16 @@ Please allow several minutes for Flyway to complete. Once finished, you will now
 
 
 == Configure Modality for Development
+=== Resolve all Modality Dependencies
+Open Modality in IntelliJ and wait for all dependencies to be resolved:
+
+image::resolve-dependencies-1.png[]
+
+
 === Modality Server
 In order to run any of the Modality client applications, the Modality Server should first be running. The Modality Server is a link:https://vertx.io/[Vert.x^] server that proxies requests to the database and is responsible for establishing and maintaining user sessions.
 
-The easiest way to stand up the server locally is to create an application run configuration in your IDE.
+The easiest way to stand up the server locally is to create an application run configuration in the IDE.
 
 In the IntelliJ menu, click `Run -> Edit Configurations` to display the following dialog, and populate with the same details:
 
@@ -366,7 +372,7 @@ Once a new script has been added to the folder, the Flyway container should be r
 
 
 == Modality Development Database
-The Modality project additionally provides a development database that is pre-populated with test data, available from the link:https://github.com/mongoose-project/modality-dev-db[modality-dev-db^] repository.
+The Modality project additionally provides a development database that is pre-populated with test data, available from the link:https://github.com/modalityone/modality-dev-db[modality-dev-db^] repository.
 
 If you wish to import this database, you will need to:
 
@@ -374,7 +380,7 @@ If you wish to import this database, you will need to:
 <2> shut down the Docker containers
 <3> delete the `docker/data/` folder
 <4> <<prune_docker_content, prune all docker content>>
-<5> download the link:https://github.com/modalityproject/modality-dev-db[modality-dev-db^] repository
+<5> download the link:https://github.com/modalityone/modality-dev-db[modality-dev-db^] repository
 <6> decompress the `V0001__modality_dev_db.sql.zip` file in the modality-dev-db repository
 <7> move the unzipped `V0001__modality_dev_db.sql` to the `modality-base/modality-base-server-datasource/src/main/resources/db/` folder
 <8> move all the other scripts temporarily out of the folder
