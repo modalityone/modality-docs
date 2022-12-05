@@ -304,11 +304,6 @@ image::modality-back-office-desktop-1.png[]
 image::modality-back-office-desktop-2.png[]
 image::modality-back-office-desktop-3.png[]
 image::modality-back-office-desktop-4.png[]
-image::modality-back-office-desktop-5.png[]
-image::modality-back-office-desktop-6.png[]
-image::modality-back-office-desktop-7.png[]
-image::modality-back-office-desktop-8.png[]
-image::modality-back-office-desktop-9.png[]
 
 
 === Back-Office Web
