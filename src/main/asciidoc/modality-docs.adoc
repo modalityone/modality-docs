@@ -173,7 +173,7 @@ Modality is developed entirely in the Java language, and requires at least JDK 1
 
  java --version
 
-If it is not installed, or is an older version, please refer to link:https://docs.oracle.com/en/java/javase/11/install/overview-jdk-installation.html#GUID-8677A77F-231A-40F7-98B9-1FD0B48C346A[this guide^].
+If it is not installed, or is an older version, please refer to link:https://docs.oracle.com/en/java/javase/17/install/overview-jdk-installation.html[this guide^].
 
 
 === 2. Install WebFX CLI
