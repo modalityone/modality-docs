@@ -8,14 +8,6 @@
     <artifactId>modality-docs</artifactId>
     <version>0.1.0-SNASHOT</version>
 
-    <pluginRepositories>
-        <pluginRepository>
-            <id>repository.spring.release</id>
-            <name>Spring GA Repository</name>
-            <url>https://repo.spring.io/release</url>
-        </pluginRepository>
-    </pluginRepositories>
-
     <build>
         <plugins>
             <plugin>
@@ -27,11 +19,6 @@
                         <groupId>org.asciidoctor</groupId>
                         <artifactId>asciidoctorj-pdf</artifactId>
                         <version>1.6.2</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>io.spring.asciidoctor</groupId>
-                        <artifactId>spring-asciidoctor-extensions-block-switch</artifactId>
-                        <version>0.6.0</version>
                     </dependency>
                     <dependency>
                         <groupId>org.asciidoctor</groupId>
