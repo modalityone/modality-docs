@@ -47,17 +47,11 @@ Git clone the Modality codebase via the terminal (or IntelliJ etc):
 
 
 === 7. Install Postgres database
-You may choose to install this natively, or you can use the link:https://github.com/modalityone/modality-local-services[modality-local-services^] repository. This contains a Docker-based solution to easily stand up Postgres on your machine, and includes appropriate configuration details to work with the Modality defaults.
+You may choose to install this natively, or you can use the link:https://github.com/modalityone/modality-local-services[modality-local-services^] repository, which contains a Docker-based solution to easily stand up Postgres on your machine.
 
 
-=== 8. Apply SQL to Postgres database
-Modality expects a database and set of tables. They can be built using the following SQL scripts:
-
- `$MODALITY_ROOT/modality-base/modality-base-server-datasource/src/main/resources/db-pristine/*.sql`
-
-Either apply the SQL scripts manually to your locally-installed Postgres database, or, if you are using the Docker-based solution we provide, then add them to the following folder:
-
- `$MODALITY_LOCAL_SERVICES/docker/data/postgres/`
+=== 8. Configure Postgres database
+Modality expects a database and set of tables, and when running in local development mode expects to connect to them using default values. The database setup scripts and default configuration values are described in the  link:https://github.com/modalityone/modality-local-services[modality-local-services^] repository README.
 
 
 
