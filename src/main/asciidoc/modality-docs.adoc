@@ -54,6 +54,14 @@ You may choose to install this natively, or you can use the link:https://github.
 Modality expects a database and set of tables, and when running in local development mode expects to connect to them using default values. The database setup scripts and default configuration values are described in the  link:https://github.com/modalityone/modality-local-services[modality-local-services^] repository README.
 
 
+=== 9. Point Modality to the database
+To point Modality to the database, do the following on your local machine:
+
+ mkdir -vp $MODALITY_ROOT/conf
+ cp $MODALITY_ROOT/modality-base/modality-base-server-datasource/src/main/resources/one/modality/base/server/services/datasource/ModalityDatabase.default.json $MODALITY_ROOT/conf/ModalityDatabase.conf
+ # Modify variables in the file if necessary
+
+
 
 == Configure Modality for Development
 === Resolve all Modality Dependencies
